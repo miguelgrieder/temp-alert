@@ -1,6 +1,12 @@
 #include "DHT.h"
 #define DHTPIN 13     // Pino digital sensor DHT
 
+//// include <WIFI.h>
+//// include <HTTPCLIENT.h>
+
+//// const char* ssid = "WifiName";
+////const char* password = "WifiPassword";
+
 // Escolha o tipo de sensor!
 # define DHTTYPE DHT11     // DHT 11
 //# define DHTTYPE DHT22   // DHT 22 (AM2302), AM2321
@@ -10,16 +16,25 @@ DHT dht(DHTPIN, DHTTYPE);
 
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
-
+float oldTemperature  = 0;
+float oldHumidity = 0;
 // Definir o endereço do LCD para 0x27 para um display de 16 caracteres e 2 linhas
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 void setup() {
   Serial.begin(9600);
+  
   Serial.println(F("DHTxx teste!"));
   dht.begin();
-
   lcd.begin();
+
+  //// WiFi.begin(ssid, password);
+  ////while (WiFi.status() != WL_CONNECTED) {
+  ////  delay(1000);
+  ////  Serial.println("Connecting to WiFi..");
+  ////}
+  ////
+  ////Serial.println("Connected to the WiFi network");
 
 }
 
@@ -70,8 +85,28 @@ void loop() {
   delay(3000);
 
 
+  if (oldTemperature*0.90 < round(t) < oldTemperature*1.10 or oldHumidity*0.95 < round(t) < oldHumidity*1.05) {
 
-
-
-
+     ////if(WiFi.status()== WL_CONNECTED){   //Check WiFi connection status
+     ////  HTTPClient http;   
+     ////  http.begin("http://127.0.0.1:8000/addReportSensor");  //Specify destination for HTTP request
+     ////  http.addHeader("Content-Type", "text/plain");             //Specify content-type header
+     ////  int httpResponseCode = http.POST("POSTING");   //Send the actual POST request
+     ////  
+     ////  if(httpResponseCode>0){
+     ////   String response = http.getString();                       //Get the response to the request
+     ////   Serial.println(httpResponseCode);   //Print return code
+     ////   Serial.println(response);           //Print request answer
+     ////  }
+     ////  else{
+     ////   Serial.print("Error on sending POST: ");
+     ////   Serial.println(httpResponseCode);
+     ////  }
+     ////  http.end();  //Free resources
+     ////}else{ 
+     ////   Serial.println("Error in WiFi connection");   
+     ////}
+     Serial.println("Enviando POST - Temperatura alterada");   
+  }
+  
 }
