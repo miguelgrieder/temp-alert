@@ -62,6 +62,11 @@ def addAlerta(request):
     serializer_alertas = AlertaSerializer(data=request.data)
     if serializer_alertas.is_valid():
         serializer_alertas.save()
+        payload = \
+            {
+                "status_bool": True,
+            }
+        request_addStatus = requests.post('http://127.0.0.1:8000/addStatus', payload)
     return Response(serializer_alertas.data)
 
 
