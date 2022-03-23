@@ -4,7 +4,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 
 import HomeScreen from './pages/Home'
 import ReportListScreen from './pages/ReportsList'
-import ReportDetailsScreen from './pages/ReportDetails'
+import ReportDetailsScreen from './pages/ReportsDetails'
 import ReportsAlertsScreen from './pages/ReportsAlerts'
 
 const MainNavigator = createStackNavigator({
